@@ -20,7 +20,6 @@ class AdprMetaBoxes {
 		wp_nonce_field(basename(__FILE__), ADPR_META_NONCE);
 		$adpr_stored_page_meta = get_post_meta($post->ID);
 		$dif_ratings = array('01','02','03','04','05','06','07','08','09','10');
-		$hours = array('01','02','03','04','05','06','07','08','09','10','11','12');
 		$fields = array(
 			array(
 				'type' => 'select',
@@ -32,21 +31,11 @@ class AdprMetaBoxes {
 				'description' => 'Select the difficulty of the DIY project.'
 			),
 			array(
-				'type' => 'select',
-				'name' => 'adpr_hour_estimate',
-				'id' => 'adpr_hour_estimate',
-				'options' => $hours,
+				'type' => 'time',
+				'name' => 'adpr_time_estimate',
+				'id' => 'adpr_time_estimate',
 				'meta_id' => $adpr_stored_page_meta,
-				'label' => __('Estimated Hours', ADPR_TEXT_DOMAIN),
-				'description' => ''
-			),
-			array(
-				'type' => 'select',
-				'name' => 'adpr_min_estimate',
-				'id' => 'adpr_min_estimate',
-				'options' => $hours,
-				'meta_id' => $adpr_stored_page_meta,
-				'label' => __('Estimated Minutes', ADPR_TEXT_DOMAIN),
+				'label' => __('Estimated Time', ADPR_TEXT_DOMAIN),
 				'description' => ''
 			),
 			array(
