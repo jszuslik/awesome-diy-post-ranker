@@ -5,7 +5,7 @@ if ( ! defined('ABSPATH') ) {
 class AdprMetaBoxHelper {
 	
 	public static function adpr_do_meta_fields($field_array) {
-		$fields = '<div id="adpr" style="display: inline-block">';
+		$fields = '<div id="adpr" style="display: inline-block;background-color: #fff; padding: 15px; border: 1px solid #ddd;margin-top:10px">';
 		foreach ($field_array as $field) {
 			$meta_fields = $field['meta_id'];
 			$value = null;
@@ -22,38 +22,44 @@ class AdprMetaBoxHelper {
 			
 			switch($type) {
 				case 'time':
-					$fields .= '<div>';
+				    $fields .= '<div style="display:inline-block;float: left;width:35%;">';
 					$fields .= AdprMetaBoxHelper::adpr_print_label($label);
 					$fields .= AdprMetaBoxHelper::$adpr_group_open;
 					$fields .= AdprMetaBoxHelper::$adpr_addon_open;
 					$fields .= 'Hours';
 					$fields .= AdprMetaBoxHelper::$adpr_span_close;
-					$fields .= AdprMetaBoxHelper::adpr_print_number_input('number','adpr_hours', 'adpr_hours', $value[0], 'auto','1', '1000', '1', '0');
+					$fields .= AdprMetaBoxHelper::adpr_print_number_input('adpr_hours', 'adpr_hours', $meta_fields['adpr_hours'][0], 'auto','1', '1000', '1', '0');
 					$fields .= AdprMetaBoxHelper::$adpr_div_close;
 					
 					$fields .= AdprMetaBoxHelper::$adpr_group_open;
 					$fields .= AdprMetaBoxHelper::$adpr_addon_open;
 					$fields .= 'Minutes';
 					$fields .= AdprMetaBoxHelper::$adpr_span_close;
-					$fields .= AdprMetaBoxHelper::adpr_print_number_input('number','adpr_minutes', 'adpr_minutes', $value[0], 'auto','0', '59', '1', '0');
+					$fields .= AdprMetaBoxHelper::adpr_print_number_input('adpr_minutes', 'adpr_minutes', $meta_fields['adpr_minutes'][0], 'auto','0', '59', '1', '0');
 					$fields .= AdprMetaBoxHelper::$adpr_div_close;
-					$fields .= '</div>';
+                    $fields .= AdprMetaBoxHelper::$adpr_div_close;
 					break;
 				case 'number':
+                    $fields .= '<div style="display:inline-block;float: left;width:45%;">';
+                    $fields .= AdprMetaBoxHelper::adpr_print_label($description);
 					$fields .= AdprMetaBoxHelper::$adpr_group_open;
 					$fields .= AdprMetaBoxHelper::$adpr_addon_open;
 					$fields .= $label;
 					$fields .= AdprMetaBoxHelper::$adpr_span_close;
-					$fields .= AdprMetaBoxHelper::adpr_print_number_input($type,$name,$id,$value[0], 'auto', '0', '10000', '0.01', '0.00');
+					$fields .= AdprMetaBoxHelper::adpr_print_number_input($name,$id,$value[0], 'auto', '0', '10000', '0.01', '0.00');
 					$fields .= AdprMetaBoxHelper::$adpr_div_close;
+                    $fields .= AdprMetaBoxHelper::$adpr_div_close;
 					break;
 				case 'select':
+                    $fields .= '<div style="display:inline-block;float: left;width:20%;">';
+                    $fields .= AdprMetaBoxHelper::adpr_print_label($description);
 					$fields .= AdprMetaBoxHelper::$adpr_group_open;
 					$fields .= AdprMetaBoxHelper::$adpr_addon_open;
 					$fields .= $label;
 					$fields .= AdprMetaBoxHelper::$adpr_span_close;
 					$fields .= AdprMetaBoxHelper::adpr_print_select($name, $id, $options, $value[0], 'auto');
-					$fields .= '</div>';
+                    $fields .= AdprMetaBoxHelper::$adpr_div_close;
+                    $fields .= AdprMetaBoxHelper::$adpr_div_close;
 					break;
 			}
 		}
@@ -61,13 +67,13 @@ class AdprMetaBoxHelper {
 		echo $fields;
 	}
 	
-	private static $adpr_group_open = '<div class="adpr-group" style="position: relative; display: table; border-collapse: separate;margin-top: 10px; margin-right: 10px; float: left; width: 10%;">';
+	private static $adpr_group_open = '<div class="adpr-group" style="position: relative; display: table; border-collapse: separate; margin-right: 10px; float: left; width: 10%;">';
 	private static $adpr_addon_open = '<span class="adpr-group-addon" style="display:table-cell;width: 1%;white-space: nowrap;vertical-align: middle;padding: 6px 12px;font-size: 14px;font-weight: 400;line-height: 1;color: #555;text-align: center;background-color: #eee;border: 1px solid #ccc;border-radius: 4px;border-right:0;border-top-right-radius: 0;border-bottom-right-radius: 0;">';
 	private static $adpr_span_close = '</span>';
 	private static $adpr_div_close = '</div>';
 	
 	private static function adpr_print_label($label) {
-		return '<label style="float: left">' . $label . '</label>';
+		return '<label style="float: left">' . $label . '</label><br>';
 	}
 	
 	private static function adpr_print_select($name, $id, $options, $value, $width) {
@@ -79,9 +85,9 @@ class AdprMetaBoxHelper {
 		$select .= AdprMetaBoxHelper::adpr_get_field_styles($width);
 		$select .= '">';
 		if($value == null){
-			$select .= '<option value="null" disabled selected>00</option>';
+			$select .= '<option value="null" disabled selected>0</option>';
 		} else {
-			$select .= '<option value="null" disabled>00</option>';
+			$select .= '<option value="null" disabled>0</option>';
 		}
 		foreach($options as $option){
 			if($value == $option){
@@ -111,10 +117,9 @@ class AdprMetaBoxHelper {
 		return $input;
 	}
 	
-	private static function adpr_print_number_input( $type, $name, $id, $value, $width, $min, $max, $step, $placeholder) {
-		$input = '<input type="';
-		$input .= $type;
-		$input .= '" name="';
+	private static function adpr_print_number_input( $name, $id, $value, $width, $min, $max, $step, $placeholder) {
+		$input = '<input type="number"';
+		$input .= ' name="';
 		$input .= $name;
 		$input .='" id="';
 		$input .= $id;
