@@ -25,4 +25,5 @@ if ( function_exists('adpr_require_file') ) {
 	adpr_require_file( $plugin_dir . 'classes/AdprMetaBoxes.php' );
 	adpr_require_file( $plugin_dir . 'helpers/AdprMetaBoxHelper.php' );
     adpr_require_file( $plugin_dir . 'classes/AdprDisplay.php' );
+    adpr_require_file( $plugin_dir . 'classes/AdprSettingsPage.php' );
 }
