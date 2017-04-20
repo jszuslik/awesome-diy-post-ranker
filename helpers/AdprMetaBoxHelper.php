@@ -8,7 +8,7 @@ class AdprMetaBoxHelper {
 		$fields = '<div id="adpr" style="display: inline-block;background-color: #fff; padding: 15px; border: 1px solid #ddd;margin-top:10px">';
 		foreach ($field_array as $field) {
 			$meta_fields = $field['meta_id'];
-			$value = null;
+			
 			$type = $field['type'];
 			$name = $field['name'];
 			$id = $field['id'];
@@ -16,8 +16,15 @@ class AdprMetaBoxHelper {
 			$options = null;
 			if(isset($field['options']))
 				$options = $field['options'];
+			$value = null;
 			if(isset($meta_fields[$name]))
 				$value = $meta_fields[$name];
+			$hours = null;
+			if(isset($meta_fields['adpr_hours']))
+				$hours = $meta_fields['adpr_hours'][0];
+			$minutes = null;
+			if(isset($meta_fields['adpr_minutes']))
+				$minutes = $meta_fields['adpr_minutes'][0];
 			$description = $field['description'];
 			
 			switch($type) {
@@ -28,14 +35,14 @@ class AdprMetaBoxHelper {
 					$fields .= AdprMetaBoxHelper::$adpr_addon_open;
 					$fields .= 'Hours';
 					$fields .= AdprMetaBoxHelper::$adpr_span_close;
-					$fields .= AdprMetaBoxHelper::adpr_print_number_input('adpr_hours', 'adpr_hours', $meta_fields['adpr_hours'][0], 'auto','1', '1000', '1', '0');
+					$fields .= AdprMetaBoxHelper::adpr_print_number_input('adpr_hours', 'adpr_hours', $hours, 'auto','1', '1000', '1', '0');
 					$fields .= AdprMetaBoxHelper::$adpr_div_close;
 					
 					$fields .= AdprMetaBoxHelper::$adpr_group_open;
 					$fields .= AdprMetaBoxHelper::$adpr_addon_open;
 					$fields .= 'Minutes';
 					$fields .= AdprMetaBoxHelper::$adpr_span_close;
-					$fields .= AdprMetaBoxHelper::adpr_print_number_input('adpr_minutes', 'adpr_minutes', $meta_fields['adpr_minutes'][0], 'auto','0', '59', '1', '0');
+					$fields .= AdprMetaBoxHelper::adpr_print_number_input('adpr_minutes', 'adpr_minutes', $minutes, 'auto','0', '59', '1', '0');
 					$fields .= AdprMetaBoxHelper::$adpr_div_close;
                     $fields .= AdprMetaBoxHelper::$adpr_div_close;
 					break;
