@@ -7,10 +7,6 @@ class AdprMetaBoxes {
         add_action('save_post', array( $this, 'adpr_save_post_meta' ) );
 	}
 
-//	public function adpr_rating_post_meta() {
-//		add_meta_box( 'adpr_rating_post_meta', __( 'DIY Evaluator', ADPR_TEXT_DOMAIN), array( $this, 'adpr_rating_post_meta_callback'), array('post'), 'normal', 'high');
-//	}
-	
 	public function adpr_move_above_content() {
 		global $post;
 		if($post->post_type == 'post'){
